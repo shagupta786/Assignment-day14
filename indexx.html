@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Form</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .form-group { margin-bottom: 10px; }
+    label { display: block; margin-bottom: 5px; }
+    input { width: 100%; padding: 8px; }
+    .error { color: red; margin-top: 5px; }
+    .success { color: green; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Registration Form</h2>
+
+  <form id="regForm">
+    <div class="form-group">
+      <label>Name:</label>
+      <input type="text" id="name">
+      <div class="error" id="nameError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Email:</label>
+      <input type="text" id="email">
+      <div class="error" id="emailError"></div>
+    </div>
+
+    <div class="form-group">
+      <label>Phone:</label>
+      <input type="text" id="phone">
+      <div class="error" id="phoneError"></div>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="successMsg" class="success"></div>
+
+  <script>
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Clear previous errors
+      document.getElementById("nameError").innerText = "";
+      document.getElementById("emailError").innerText = "";
+      document.getElementById("phoneError").innerText = "";
+      document.getElementById("successMsg").innerText = "";
+
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let phone = document.getElementById("phone").value.trim();
+
+      let valid = true;
+
+      // Validation
+      if (name === "") {
+        document.getElementById("nameError").innerText = "Name is required";
+        valid = false;
+      }
+
+      if (email === "") {
+        document.getElementById("emailError").innerText = "Email is required";
+        valid = false;
+      } else if (!/^[^ ]+@[^ ]+\.[a-z]{2,3}$/.test(email)) {
+        document.getElementById("emailError").innerText = "Invalid email format";
+        valid = false;
+      }
+
+      if (phone === "") {
+        document.getElementById("phoneError").innerText = "Phone is required";
+        valid = false;
+      }
+
+      if (valid) {
+        document.getElementById("successMsg").innerText = "Form submitted successfully!";
+        document.getElementById("regForm").reset(); // clear form
+      }
+    });
+  </script>
+
+</body>
+</html>
